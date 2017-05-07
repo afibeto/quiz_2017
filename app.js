@@ -8,7 +8,7 @@ var partials = require("express-partials");
 
 var index = require('./routes/index');
 var author = require("./routes/author");
-
+var help = require("./routes/help");
 var app = express();
 
 // view engine setup
@@ -26,6 +26,7 @@ app.use(partials());
 
 app.use('/', index);
 app.use("/author", author);
+app.use("/help", help);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -218,6 +218,18 @@ exports.randomplay =  function(req, res, next){
 
     )
     .then(function(quiz){
+            if(quiz == null){
+                var error={
+                    status : "Verifica tu base de datos",
+                    stack : "---"
+               }
+
+                res.render("error",{
+                    message: "NO HAY ELEMENTOS EN LA BASE DE DATOS",
+                    error: error
+                });
+            }
+
             req.session.index = req.session.index.concat(quiz.id);
             console.log(req.session.index);
             res.render("random_play",{

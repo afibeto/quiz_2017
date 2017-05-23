@@ -207,15 +207,12 @@ exports.randomplay =  function(req, res, next){
     models.Quiz.findOne({
         order: [
             Sequelize.fn( 'RANDOM' ),
-        ]
-    },
-    {
-        where:{
-            id:{
-                $notIn: req.session.index
-            }
+        ],
+         where:{
+            id: Sequelize.literal("id NOT IN ("+req.session.index+")")
         }
     }
+
     )
     .then(function(quiz){
             req.session.index = req.session.index.concat(quiz.id);
@@ -235,25 +232,32 @@ exports.randomcheck = function(req, res, next){
 	var score = req.session.score;
 
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
-    if(result){
-    	req.session.score++;
-    	score=req.session.score;
-    }
-    else{
-    	req.session.score=0;
-    }
 
-    if(true/*req.session.index.length < req.session.number*/){
-        req.session.checkit = true;
-        res.render('random_result', {
-    		score: score,
-    		result: result,
-            answer: answer
-        });
-    }
-    else{
-        res.render("random_nomore", {
-            score: score
-        });
-    }
+
+    models.Quiz.count({}).then(function(n){
+	    if(result){
+	    	req.session.score++;
+	    	score=req.session.score;
+	    }
+	    else{
+	    	req.session.score=0;
+	    	req.session.index =[];
+	    }
+
+	    if(score < n){
+	        req.session.checkit = true;
+	        res.render('random_result', {
+	    		score: score,
+	    		result: result,
+	            answer: answer
+	        });
+	    }
+	    else{
+	        res.render("random_nomore", {
+	            score: score
+	        });
+	    }
+
+    });
+
  };

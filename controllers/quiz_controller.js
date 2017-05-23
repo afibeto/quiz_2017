@@ -198,7 +198,7 @@ exports.randomplay =  function(req, res, next){
 
 	if(!req.session.checkit || req.session.score == undefined ){
 		req.session.score = 0;
-        req.session.index = [];
+        req.session.index = [0];
 	}
 
 
@@ -209,7 +209,10 @@ exports.randomplay =  function(req, res, next){
             Sequelize.fn( 'RANDOM' ),
         ],
          where:{
-            id: Sequelize.literal("id NOT IN ("+req.session.index+")")
+            id:{
+                $notIn: req.session.index
+            }
+ 
         }
     }
 

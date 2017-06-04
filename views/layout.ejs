@@ -34,7 +34,9 @@
 
     <nav class="main" id="mainNav" role="navigation">
         <a href="/">Inicio</a>
+        <a href="/quizzes/randomplay">Jugar</a>
         <a href="/quizzes">Preguntas</a>
+
         <% if (session.user) { %>
             <a href="/users/<%= session.user.id %>/quizzes">Mis Preguntas</a>
         <% } %>
@@ -87,7 +89,7 @@
     </section>
 
     <footer class="main" id="mainFooter">
-        <a href="http://es.wikipedia.org/wiki/Quiz">
+        <a href="/help">
             ¿Qué es un Quiz?</a>
     </footer>
 </div>

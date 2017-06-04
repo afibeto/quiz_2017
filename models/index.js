@@ -42,6 +42,14 @@ Quiz.hasMany(Tip);
 User.hasMany(Quiz, {foreignKey: 'AuthorId'});
 Quiz.belongsTo(User, {as: 'Author', foreignKey: 'AuthorId'});
 
+sequelize.sync()
+.then(function(){
+	console.log("DB creada");
+})
+.catch(function(err){
+	console.log("DB error");
+})
+
 
 exports.Quiz = Quiz; // exportar definición de tabla Quiz
 exports.Tip = Tip;   // exportar definición de tabla Tips

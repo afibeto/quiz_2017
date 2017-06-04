@@ -17,5 +17,10 @@
         <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Respuesta" autocomplete="off"/>
         <input type="submit" class="itemNarrow" id="send" value="Comprobar">
     </div>
+    <% var tips = quiz.Tips; %>
+	<% var quizId = quiz.id; %>
+	<% var quizAuthorId = quiz.AuthorId; %>
+
+	<% include ./tips/index %>
 </form>
 

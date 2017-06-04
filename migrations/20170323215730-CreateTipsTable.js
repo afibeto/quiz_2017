@@ -3,7 +3,7 @@
 module.exports = {
     up: function (queryInterface, Sequelize) {
         return queryInterface.createTable(
-            'Quizzes',
+            'Tips',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -12,13 +12,12 @@ module.exports = {
                     autoIncrement: true,
                     unique: true
                 },
-                question: {
-                    type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Falta la Pregunta."}}
+                QuizId: {
+                    type: Sequelize.INTEGER
                 },
-                answer: {
+                text: {
                     type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Falta la Respuesta."}}
+                    validate: {notEmpty: {msg: "Falta el texto de la Pista."}}
                 },
                 createdAt: {
                     type: Sequelize.DATE,
@@ -34,7 +33,8 @@ module.exports = {
             }
         );
     },
+
     down: function (queryInterface, Sequelize) {
-        return queryInterface.dropTable('Quizzes');
+        return queryInterface.dropTable('Tips');
     }
 };

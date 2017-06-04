@@ -2,8 +2,7 @@
 
 module.exports = {
     up: function (queryInterface, Sequelize) {
-        return queryInterface.createTable(
-            'Quizzes',
+        return queryInterface.createTable('Users',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -12,13 +11,23 @@ module.exports = {
                     autoIncrement: true,
                     unique: true
                 },
-                question: {
+                username: {
                     type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Falta la Pregunta."}}
+                    unique: true,
+                    validate: {
+                        notEmpty: {msg: "Falta el username."}
+                    }
                 },
-                answer: {
+                password: {
                     type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Falta la Respuesta."}}
+                    validate: {notEmpty: {msg: "Falta el password."}}
+                },
+                salt: {
+                    type: Sequelize.STRING
+                },
+                isAdmin: {
+                    type: Sequelize.BOOLEAN,
+                    defaultValue: false
                 },
                 createdAt: {
                     type: Sequelize.DATE,
@@ -34,7 +43,8 @@ module.exports = {
             }
         );
     },
+
     down: function (queryInterface, Sequelize) {
-        return queryInterface.dropTable('Quizzes');
+        return queryInterface.dropTable('Users');
     }
 };

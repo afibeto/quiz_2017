@@ -243,17 +243,14 @@ exports.check = function (req, res, next) {
     req.session.checkit = false;
 
     models.Quiz.findOne({
-        order: [
-            Sequelize.fn( 'RANDOM' ),
-        ],
-         where:{
+        order: Sequelize.fn( 'RANDOM' ),
+        
+        where:{
             id:{
                 $notIn: req.session.index
             }
- 
-        }
-    },
-    {
+        },
+        
         include: [
             {
                 model: models.Tip,

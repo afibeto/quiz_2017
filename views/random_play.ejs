@@ -1,3 +1,18 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(document).ready( function(){
+		$("#toggle").click(function(){
+			$("#hide").toggle();
+			if($("#toggle").val() == "Ocultar pistas")
+				$("#toggle").val("ver pistas");
+			else
+				$("#toggle").val("Ocultar pistas");
+		});
+	});
+</script>
+
+
 <h1>
     Juego Aleatorio:
 </h1>
@@ -20,7 +35,10 @@
     <% var tips = quiz.Tips; %>
 	<% var quizId = quiz.id; %>
 	<% var quizAuthorId = quiz.AuthorId; %>
+	<div id="hide">
+		<% include ./tips/index %>
+	</div>
+	<input type="button" value="ver pista" id="toggle">
 
-	<% include ./tips/index %>
 </form>
 
